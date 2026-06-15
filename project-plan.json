@@ -1,0 +1,2551 @@
+{
+  "project_summary": "App for tasks between me, my wife and kids in the house, should be confortable to use on mobile and have realtime updates with supabase\n",
+  "technology_stack": {
+    "frontend": "React",
+    "backend": "FastAPI",
+    "database": "MongoDB",
+    "deployment": "Vercel"
+  },
+  "phases": [
+    {
+      "issues": [
+        {
+          "id": "setup-001",
+          "title": "Initialize Monorepo Structure and Tooling",
+          "description": "Establish the monorepo workspace using pnpm workspaces to manage React frontend and FastAPI backend packages, including unified linting and formatting rules.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Root directory configuration, package.json workspaces, ESLint/Prettier setup.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Initialize git repository",
+              "Configure pnpm-workspace.yaml"
+            ],
+            "implementation_tasks": [
+              "Install ESLint and Prettier devDependencies",
+              "Create shared .eslintrc.json and .prettierrc"
+            ],
+            "testing_tasks": [
+              "Verify linting runs across both packages"
+            ],
+            "documentation_tasks": [
+              "Update README with workspace instructions"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Monorepo structure initialized",
+              "Linting and formatting rules applied globally",
+              "Dependencies isolated per package"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "setup/init-repo",
+          "recommended_commits": [
+            "feat: initialize monorepo structure",
+            "chore: configure shared linting and formatting"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [],
+          "tags": [
+            "setup",
+            "infrastructure"
+          ],
+          "notes": "Ensure pnpm is used as the package manager for workspace support."
+        },
+        {
+          "id": "setup-002",
+          "title": "Define MongoDB Mongoose Schemas",
+          "description": "Implement Mongoose models for Users, Tasks, and Households to ensure data integrity within the MongoDB instance.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Backend/models directory, Mongoose schema definitions.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install mongoose in backend package"
+            ],
+            "implementation_tasks": [
+              "Define User schema",
+              "Define Task schema",
+              "Define Household schema"
+            ],
+            "testing_tasks": [
+              "Write unit tests for schema validation"
+            ],
+            "documentation_tasks": [
+              "Document schema relationships"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Schemas defined for all core entities",
+              "Validation rules enforced for required fields"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "setup/db-schema",
+          "recommended_commits": [
+            "feat: add user, task, and household schemas"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [
+            "setup-001"
+          ],
+          "tags": [
+            "database",
+            "backend"
+          ],
+          "notes": "Ensure schemas support MongoDB ObjectId references for relational mapping."
+        },
+        {
+          "id": "setup-003",
+          "title": "Implement Environment Variable Management",
+          "description": "Configure a centralized environment variable strategy using pydantic-settings for FastAPI and Vite's .env system for React.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Root .env.example, backend config module, frontend .env files.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create .env.example template"
+            ],
+            "implementation_tasks": [
+              "Configure Pydantic Settings in FastAPI",
+              "Configure Vite env prefixing"
+            ],
+            "testing_tasks": [
+              "Verify env loading in local dev"
+            ],
+            "documentation_tasks": [
+              "Update README with required env keys"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Environment variables loaded correctly",
+              "Sensitive keys excluded from version control"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "setup/env-vars",
+          "recommended_commits": [
+            "feat: implement environment variable configuration"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "setup-001"
+          ],
+          "tags": [
+            "security",
+            "configuration"
+          ],
+          "notes": "Ensure Supabase and MongoDB connection strings are handled securely."
+        },
+        {
+          "id": "setup-004",
+          "title": "Configure GitHub Actions CI/CD Pipeline",
+          "description": "Set up automated workflows for linting, testing, and deployment to Vercel on push to main/develop branches.",
+          "type": "deployment",
+          "status": "todo",
+          "priority": "medium",
+          "scope": ".github/workflows directory.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create .github/workflows/ci.yml"
+            ],
+            "implementation_tasks": [
+              "Add linting job",
+              "Add test execution job",
+              "Add Vercel deployment trigger"
+            ],
+            "testing_tasks": [
+              "Trigger workflow via PR"
+            ],
+            "documentation_tasks": [
+              "Add CI status badge to README"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "CI pipeline runs on PR",
+              "Vercel deployment triggers on merge to main"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "setup/cicd",
+          "recommended_commits": [
+            "feat: add github actions pipeline"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "setup-001"
+          ],
+          "tags": [
+            "ci-cd",
+            "devops"
+          ],
+          "notes": "Use Vercel CLI for deployment automation."
+        },
+        {
+          "id": "setup-005",
+          "title": "Create Docker Compose for Local Development",
+          "description": "Define a docker-compose.yml file to spin up a local MongoDB instance and the FastAPI backend service.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Root docker-compose.yml, Dockerfile for backend.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create Dockerfile for FastAPI"
+            ],
+            "implementation_tasks": [
+              "Configure docker-compose with MongoDB service",
+              "Configure network bridge"
+            ],
+            "testing_tasks": [
+              "Verify local container startup"
+            ],
+            "documentation_tasks": [
+              "Add docker instructions to README"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Database and API start with one command",
+              "Persistent volumes configured for MongoDB"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "setup/docker-dev",
+          "recommended_commits": [
+            "feat: add docker-compose for local dev"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [
+            "setup-002"
+          ],
+          "tags": [
+            "docker",
+            "devops"
+          ],
+          "notes": "Ensure the MongoDB container is accessible by the FastAPI service via internal network."
+        },
+        {
+          "id": "setup-006",
+          "title": "Configure React Query and Supabase Client",
+          "description": "Initialize the React Query provider and the Supabase client instance for real-time data synchronization.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Frontend/src/lib, frontend/src/providers.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install @tanstack/react-query and @supabase/supabase-js"
+            ],
+            "implementation_tasks": [
+              "Create Supabase client singleton",
+              "Wrap app in QueryClientProvider"
+            ],
+            "testing_tasks": [
+              "Verify Supabase connection in console"
+            ],
+            "documentation_tasks": [
+              "Document real-time hook usage"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Supabase client initialized",
+              "React Query cache configured"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "setup/frontend-lib",
+          "recommended_commits": [
+            "feat: initialize react query and supabase client"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "setup-003"
+          ],
+          "tags": [
+            "frontend",
+            "real-time"
+          ],
+          "notes": "Ensure the Supabase client uses the environment variables defined in setup-003."
+        }
+      ],
+      "batchNumber": 1
+    },
+    {
+      "issues": [
+        {
+          "id": "auth-001",
+          "title": "Implement User Registration Pydantic Models",
+          "description": "Define robust Pydantic schemas for user registration, including validation for email formats, password complexity, and household association IDs.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "FastAPI models and request validation logic",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install pydantic-settings",
+              "Configure environment variables for auth"
+            ],
+            "implementation_tasks": [
+              "Create UserCreate schema",
+              "Create UserResponse schema",
+              "Add password hashing utility"
+            ],
+            "testing_tasks": [
+              "Unit test schema validation",
+              "Test password hashing integration"
+            ],
+            "documentation_tasks": [
+              "Update API docs with schema definitions"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Registration endpoint accepts valid JSON",
+              "Invalid emails return 422",
+              "Passwords are hashed before storage"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/auth-models",
+          "recommended_commits": [
+            "feat: add user registration schemas",
+            "feat: implement password hashing utility"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [],
+          "tags": [
+            "auth",
+            "pydantic"
+          ],
+          "notes": "Ensure password hashing uses bcrypt or argon2."
+        },
+        {
+          "id": "task-001",
+          "title": "Develop Task CRUD Endpoints",
+          "description": "Implement the core REST API endpoints for managing household tasks (POST, GET, PUT, DELETE).",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Task controller and service layer",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define Task Pydantic models",
+              "Setup MongoDB collection interface"
+            ],
+            "implementation_tasks": [
+              "Implement POST /tasks",
+              "Implement GET /tasks",
+              "Implement PUT /tasks/{id}",
+              "Implement DELETE /tasks/{id}"
+            ],
+            "testing_tasks": [
+              "Integration tests for CRUD operations"
+            ],
+            "documentation_tasks": [
+              "Update OpenAPI/Swagger documentation"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Tasks can be created with title/description",
+              "Tasks are retrieved by household ID",
+              "Updates persist to MongoDB"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/task-api",
+          "recommended_commits": [
+            "feat: implement task CRUD endpoints",
+            "refactor: add task service layer"
+          ],
+          "estimated_hours": 8,
+          "dependencies": [
+            "auth-001"
+          ],
+          "tags": [
+            "api",
+            "tasks"
+          ],
+          "notes": "Ensure all endpoints are scoped to the authenticated user's household."
+        },
+        {
+          "id": "hh-001",
+          "title": "Implement Household Creation Logic",
+          "description": "Create logic to initialize a new household and assign the creator as the primary parent.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Household service and database schema",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define Household MongoDB schema"
+            ],
+            "implementation_tasks": [
+              "Create household creation endpoint",
+              "Generate unique invite codes",
+              "Associate creator with household"
+            ],
+            "testing_tasks": [
+              "Test household creation flow"
+            ],
+            "documentation_tasks": [
+              "Document household structure"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Household created successfully",
+              "Creator assigned 'parent' role",
+              "Invite code generated"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/household-logic",
+          "recommended_commits": [
+            "feat: add household creation logic",
+            "feat: implement invite code generation"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [
+            "auth-001"
+          ],
+          "tags": [
+            "household",
+            "logic"
+          ],
+          "notes": "Invite codes should be short, alphanumeric strings."
+        },
+        {
+          "id": "hh-002",
+          "title": "Implement Member Invitation Logic",
+          "description": "Develop endpoints to allow parents to invite new members to an existing household.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Invitation service and email/notification trigger",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define Invitation schema"
+            ],
+            "implementation_tasks": [
+              "Create invite endpoint",
+              "Validate invite code",
+              "Add user to household members list"
+            ],
+            "testing_tasks": [
+              "Test successful member joining"
+            ],
+            "documentation_tasks": [
+              "Document invitation flow"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Valid invite code adds user to household",
+              "Invalid codes return 404",
+              "Only parents can generate invites"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/household-logic",
+          "recommended_commits": [
+            "feat: add member invitation endpoint"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "hh-001"
+          ],
+          "tags": [
+            "household",
+            "security"
+          ],
+          "notes": "Consider rate-limiting the invitation endpoint."
+        },
+        {
+          "id": "rbac-001",
+          "title": "Implement RBAC Middleware",
+          "description": "Create FastAPI dependency injection middleware to enforce role-based access control for task modifications.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "FastAPI dependencies",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define Role enum"
+            ],
+            "implementation_tasks": [
+              "Create get_current_user dependency",
+              "Create role_required dependency",
+              "Apply middleware to task routes"
+            ],
+            "testing_tasks": [
+              "Test unauthorized access attempts"
+            ],
+            "documentation_tasks": [
+              "Document role permissions"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Children cannot delete tasks",
+              "Parents have full access",
+              "Unauthorized requests return 403"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/rbac",
+          "recommended_commits": [
+            "feat: add RBAC middleware",
+            "refactor: apply RBAC to task routes"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [
+            "task-001"
+          ],
+          "tags": [
+            "rbac",
+            "security"
+          ],
+          "notes": "Use FastAPI's Depends mechanism for clean implementation."
+        },
+        {
+          "id": "ana-001",
+          "title": "Create Task Completion Analytics Endpoint",
+          "description": "Develop an endpoint to aggregate task completion data per user for the dashboard.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "low",
+          "scope": "Aggregation pipeline in MongoDB",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define aggregation query"
+            ],
+            "implementation_tasks": [
+              "Create GET /analytics/completion",
+              "Implement MongoDB aggregation pipeline"
+            ],
+            "testing_tasks": [
+              "Verify aggregation accuracy"
+            ],
+            "documentation_tasks": [
+              "Document analytics endpoint"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Returns count of completed tasks per user",
+              "Data is filtered by household"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/analytics",
+          "recommended_commits": [
+            "feat: add task completion analytics"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "task-001"
+          ],
+          "tags": [
+            "analytics",
+            "reporting"
+          ],
+          "notes": "Use MongoDB aggregation framework for performance."
+        },
+        {
+          "id": "setup-001",
+          "title": "Configure Database Connection Pool",
+          "description": "Setup Motor (async MongoDB driver) connection pooling for the FastAPI application.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Database configuration module",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install motor"
+            ],
+            "implementation_tasks": [
+              "Create db.py connection manager",
+              "Add lifecycle events for connect/disconnect"
+            ],
+            "testing_tasks": [
+              "Verify connection health"
+            ],
+            "documentation_tasks": [
+              "Document DB connection settings"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "App connects to MongoDB on startup",
+              "Connections are closed on shutdown"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/db-setup",
+          "recommended_commits": [
+            "setup: configure motor db connection"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [],
+          "tags": [
+            "database",
+            "setup"
+          ],
+          "notes": "Ensure connection string is pulled from environment variables."
+        },
+        {
+          "id": "test-001",
+          "title": "Setup Pytest Integration Framework",
+          "description": "Configure Pytest with TestClient for FastAPI to enable integration testing.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Test suite configuration",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install pytest, httpx"
+            ],
+            "implementation_tasks": [
+              "Create conftest.py",
+              "Setup test database override"
+            ],
+            "testing_tasks": [
+              "Write smoke test for root endpoint"
+            ],
+            "documentation_tasks": [
+              "Update README with testing instructions"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Tests run in isolation",
+              "Test database is cleared after each test"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/testing-setup",
+          "recommended_commits": [
+            "setup: add pytest configuration"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "setup-001"
+          ],
+          "tags": [
+            "testing",
+            "ci"
+          ],
+          "notes": "Use a separate MongoDB database for testing."
+        },
+        {
+          "id": "doc-001",
+          "title": "Document API Schema and Authentication",
+          "description": "Generate and refine OpenAPI documentation for all implemented endpoints.",
+          "type": "documentation",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "API documentation",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Review Swagger UI"
+            ],
+            "implementation_tasks": [
+              "Add docstrings to all endpoints",
+              "Define response models for all routes"
+            ],
+            "testing_tasks": [
+              "Verify Swagger UI renders correctly"
+            ],
+            "documentation_tasks": [
+              "Update API documentation"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "All endpoints visible in Swagger",
+              "Models are clearly defined"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "backend/docs",
+          "recommended_commits": [
+            "docs: update API documentation"
+          ],
+          "estimated_hours": 2,
+          "dependencies": [
+            "task-001",
+            "auth-001"
+          ],
+          "tags": [
+            "documentation"
+          ],
+          "notes": "Use FastAPI's built-in OpenAPI generation."
+        },
+        {
+          "id": "bug-001",
+          "title": "Fix Race Condition in Task Status Updates",
+          "description": "Ensure task status updates are atomic to prevent concurrent modification issues.",
+          "type": "bug_fix",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Task update logic",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Reproduce race condition"
+            ],
+            "implementation_tasks": [
+              "Implement optimistic locking or atomic updates"
+            ],
+            "testing_tasks": [
+              "Write concurrency test"
+            ],
+            "documentation_tasks": [
+              "Document concurrency strategy"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Concurrent updates do not corrupt data",
+              "Atomic operations used for status changes"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "backend/fix-task-concurrency",
+          "recommended_commits": [
+            "fix: use atomic updates for task status"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "task-001"
+          ],
+          "tags": [
+            "bug",
+            "concurrency"
+          ],
+          "notes": "Use $set with versioning if necessary."
+        },
+        {
+          "id": "dep-001",
+          "title": "Configure Vercel Serverless Deployment",
+          "description": "Configure vercel.json to support FastAPI deployment on Vercel serverless functions.",
+          "type": "deployment",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Deployment configuration",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install vercel CLI"
+            ],
+            "implementation_tasks": [
+              "Create vercel.json",
+              "Configure build steps for Python"
+            ],
+            "testing_tasks": [
+              "Verify build in staging"
+            ],
+            "documentation_tasks": [
+              "Update deployment guide"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "App builds successfully on Vercel",
+              "Endpoints are reachable"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "backend/deployment",
+          "recommended_commits": [
+            "chore: add vercel deployment config"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "setup-001"
+          ],
+          "tags": [
+            "deployment",
+            "vercel"
+          ],
+          "notes": "Ensure environment variables are mapped correctly in Vercel dashboard."
+        }
+      ],
+      "batchNumber": 2
+    },
+    {
+      "issues": [
+        {
+          "id": "FT-023",
+          "title": "Implement Responsive Bottom Navigation for Mobile",
+          "description": "Develop a persistent bottom navigation bar for mobile devices that provides quick access to Dashboard, Add Task, and Profile views.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Frontend layout components",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install Framer Motion for transitions"
+            ],
+            "implementation_tasks": [
+              "Create BottomNav component",
+              "Implement active state styling",
+              "Add safe-area-inset support for iOS"
+            ],
+            "testing_tasks": [
+              "Verify touch target size (min 44px)",
+              "Test navigation flow on mobile viewport"
+            ],
+            "documentation_tasks": [
+              "Update component README"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Nav bar is fixed to bottom on mobile",
+              "Icons change color on active route",
+              "Smooth transition between views"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/layout",
+          "recommended_commits": [
+            "feat: add mobile bottom navigation",
+            "style: add safe-area-inset support"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [],
+          "tags": [
+            "ui",
+            "mobile-first"
+          ],
+          "notes": "Ensure z-index is handled correctly to avoid overlap with content."
+        },
+        {
+          "id": "FT-024",
+          "title": "Build Task List Component with Filtering",
+          "description": "Create a reusable TaskList component that supports filtering by status (pending/completed) and sorting by due date.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Dashboard UI",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define Task interface"
+            ],
+            "implementation_tasks": [
+              "Create filter state logic",
+              "Implement sorting utility functions",
+              "Build task item card component"
+            ],
+            "testing_tasks": [
+              "Test filter toggle functionality",
+              "Verify sorting order"
+            ],
+            "documentation_tasks": [
+              "Document filter props"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Tasks filter correctly by status",
+              "Sorting toggles between ascending/descending",
+              "Empty state shown when no tasks match"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/dashboard",
+          "recommended_commits": [
+            "feat: create task list component",
+            "feat: add filtering and sorting logic"
+          ],
+          "estimated_hours": 8,
+          "dependencies": [
+            "FT-027"
+          ],
+          "tags": [
+            "dashboard",
+            "ui"
+          ],
+          "notes": "Use memoization for list rendering to optimize performance."
+        },
+        {
+          "id": "FT-025",
+          "title": "Develop Reusable Add Task Modal",
+          "description": "Create a portal-based modal component for creating and editing tasks, including form validation.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Task Modal UI",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install React Hook Form",
+              "Install Zod for validation"
+            ],
+            "implementation_tasks": [
+              "Create Modal overlay component",
+              "Implement form fields",
+              "Add submission handler"
+            ],
+            "testing_tasks": [
+              "Test form validation errors",
+              "Verify modal close on backdrop click"
+            ],
+            "documentation_tasks": [
+              "Add JSDoc for Modal props"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Modal opens/closes via state",
+              "Form validates required fields",
+              "Data persists on submit"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/task-modal",
+          "recommended_commits": [
+            "feat: add task modal structure",
+            "feat: implement form validation"
+          ],
+          "estimated_hours": 10,
+          "dependencies": [
+            "FT-027"
+          ],
+          "tags": [
+            "form",
+            "ui"
+          ],
+          "notes": "Ensure accessibility (A11y) by managing focus trap."
+        },
+        {
+          "id": "FT-026",
+          "title": "Implement User Profile and Theme Toggle",
+          "description": "Build the profile settings page allowing users to update display name and toggle between light/dark themes.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Profile UI",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Configure Tailwind dark mode strategy"
+            ],
+            "implementation_tasks": [
+              "Create theme context",
+              "Build profile update form",
+              "Implement theme toggle switch"
+            ],
+            "testing_tasks": [
+              "Verify theme persistence in localStorage",
+              "Test profile update API call"
+            ],
+            "documentation_tasks": [
+              "Update theme configuration docs"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Theme toggles globally",
+              "Profile updates reflect in UI",
+              "Settings persist across sessions"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/profile",
+          "recommended_commits": [
+            "feat: add theme toggle",
+            "feat: build profile settings UI"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [],
+          "tags": [
+            "settings",
+            "ui"
+          ],
+          "notes": "Use system preference as default theme."
+        },
+        {
+          "id": "FT-027",
+          "title": "Configure TanStack Query Provider",
+          "description": "Set up the React Query client and provider to manage server state and caching for tasks.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Global state management",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install @tanstack/react-query"
+            ],
+            "implementation_tasks": [
+              "Create QueryClient instance",
+              "Wrap app in QueryClientProvider",
+              "Configure default staleTime"
+            ],
+            "testing_tasks": [
+              "Verify cache invalidation on mutation"
+            ],
+            "documentation_tasks": [
+              "Add state management guide"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Provider wraps root component",
+              "DevTools enabled in development",
+              "Data fetching works with hooks"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "frontend/state-mgmt",
+          "recommended_commits": [
+            "setup: configure tanstack query"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [],
+          "tags": [
+            "infrastructure",
+            "state"
+          ],
+          "notes": "Set staleTime to 5 minutes to reduce unnecessary network requests."
+        },
+        {
+          "id": "FT-028",
+          "title": "Implement Task Creation Mutation",
+          "description": "Connect the Add Task Modal to the backend using React Query mutations.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Task API integration",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define API service functions"
+            ],
+            "implementation_tasks": [
+              "Create useCreateTask hook",
+              "Implement optimistic updates",
+              "Handle error states"
+            ],
+            "testing_tasks": [
+              "Verify task appears in list after creation"
+            ],
+            "documentation_tasks": [
+              "Document API hooks"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Task added to list immediately",
+              "Backend receives correct payload",
+              "Error toast displayed on failure"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/task-modal",
+          "recommended_commits": [
+            "feat: add task mutation",
+            "fix: handle optimistic updates"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "FT-025",
+            "FT-027"
+          ],
+          "tags": [
+            "api",
+            "state"
+          ],
+          "notes": "Use queryClient.invalidateQueries to refresh task list."
+        },
+        {
+          "id": "FT-029",
+          "title": "Add Loading Skeletons for Dashboard",
+          "description": "Implement skeleton loaders to improve perceived performance while tasks are fetching.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Dashboard UI",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install skeleton library"
+            ],
+            "implementation_tasks": [
+              "Create TaskSkeleton component",
+              "Integrate with TaskList loading state"
+            ],
+            "testing_tasks": [
+              "Verify skeleton visibility during network delay"
+            ],
+            "documentation_tasks": []
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Skeletons match task card dimensions",
+              "Skeletons disappear when data loads"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "frontend/dashboard",
+          "recommended_commits": [
+            "feat: add loading skeletons"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "FT-024"
+          ],
+          "tags": [
+            "ux",
+            "ui"
+          ],
+          "notes": "Ensure skeleton animation is subtle."
+        },
+        {
+          "id": "FT-030",
+          "title": "Implement Task Completion Toggle",
+          "description": "Add functionality to mark tasks as complete directly from the dashboard.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Task interaction",
+          "technical_checklist": {
+            "setup_tasks": [],
+            "implementation_tasks": [
+              "Create useUpdateTask hook",
+              "Add checkbox/button to TaskItem",
+              "Implement optimistic UI update"
+            ],
+            "testing_tasks": [
+              "Verify task status updates in DB"
+            ],
+            "documentation_tasks": []
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Task status toggles on click",
+              "Visual feedback provided",
+              "State syncs with backend"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/dashboard",
+          "recommended_commits": [
+            "feat: add task completion toggle"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "FT-024",
+            "FT-027"
+          ],
+          "tags": [
+            "interaction",
+            "api"
+          ],
+          "notes": "Ensure the toggle is disabled while the mutation is in progress."
+        },
+        {
+          "id": "FT-031",
+          "title": "Add Error Boundary for Frontend",
+          "description": "Implement a global error boundary to catch and display errors gracefully.",
+          "type": "bug_fix",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "App stability",
+          "technical_checklist": {
+            "setup_tasks": [],
+            "implementation_tasks": [
+              "Create ErrorBoundary component",
+              "Wrap main application routes"
+            ],
+            "testing_tasks": [
+              "Simulate component crash",
+              "Verify fallback UI"
+            ],
+            "documentation_tasks": []
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "App does not white-screen on error",
+              "User sees friendly error message",
+              "Error logged to console"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "frontend/layout",
+          "recommended_commits": [
+            "feat: add global error boundary"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [],
+          "tags": [
+            "stability",
+            "error-handling"
+          ],
+          "notes": "Include a 'Retry' button in the fallback UI."
+        },
+        {
+          "id": "FT-032",
+          "title": "Implement Responsive Sidebar for Desktop",
+          "description": "Add a sidebar navigation for desktop viewports that complements the mobile bottom nav.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Layout",
+          "technical_checklist": {
+            "setup_tasks": [],
+            "implementation_tasks": [
+              "Create Sidebar component",
+              "Use Tailwind media queries for visibility",
+              "Adjust main content padding"
+            ],
+            "testing_tasks": [
+              "Verify layout shift on resize"
+            ],
+            "documentation_tasks": []
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Sidebar hidden on mobile",
+              "Sidebar visible on desktop",
+              "Content centers correctly"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "frontend/layout",
+          "recommended_commits": [
+            "feat: add desktop sidebar"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "FT-023"
+          ],
+          "tags": [
+            "layout",
+            "responsive"
+          ],
+          "notes": "Use flexbox for layout structure."
+        },
+        {
+          "id": "FT-033",
+          "title": "Add Toast Notifications for Actions",
+          "description": "Implement a toast notification system to provide feedback on task creation and updates.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "UI feedback",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install react-hot-toast"
+            ],
+            "implementation_tasks": [
+              "Configure toast provider",
+              "Integrate with task mutations"
+            ],
+            "testing_tasks": [
+              "Verify toast appears on success/error"
+            ],
+            "documentation_tasks": []
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Toast appears on task creation",
+              "Toast appears on task completion",
+              "Toasts auto-dismiss"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "frontend/task-modal",
+          "recommended_commits": [
+            "feat: add toast notifications"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "FT-028"
+          ],
+          "tags": [
+            "ux",
+            "feedback"
+          ],
+          "notes": "Keep toast duration short (3s)."
+        }
+      ],
+      "batchNumber": 3
+    },
+    {
+      "issues": [
+        {
+          "id": "AUTH-001",
+          "title": "Implement Supabase Auth Provider in React",
+          "description": "Set up the Supabase Auth context to manage user session state across the application.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Frontend authentication state management",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install @supabase/supabase-js",
+              "Initialize Supabase client singleton"
+            ],
+            "implementation_tasks": [
+              "Create AuthContext",
+              "Implement AuthProvider wrapper",
+              "Create useAuth hook"
+            ],
+            "testing_tasks": [
+              "Verify session persistence on page refresh",
+              "Test login/logout state transitions"
+            ],
+            "documentation_tasks": [
+              "Document AuthContext usage in README"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "User session persists after browser refresh",
+              "Auth state is accessible via hook"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/auth",
+          "recommended_commits": [
+            "feat: initialize supabase client",
+            "feat: add auth context and provider"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [],
+          "tags": [
+            "auth",
+            "frontend"
+          ],
+          "notes": "Ensure sensitive keys are loaded from environment variables."
+        },
+        {
+          "id": "API-002",
+          "title": "Configure Axios Interceptors for JWT Injection",
+          "description": "Create an Axios instance that automatically attaches the Supabase JWT to the Authorization header for FastAPI requests.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "API client configuration",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install axios"
+            ],
+            "implementation_tasks": [
+              "Create api client instance",
+              "Add request interceptor to inject Bearer token",
+              "Add response interceptor for 401 handling"
+            ],
+            "testing_tasks": [
+              "Verify JWT is present in request headers",
+              "Verify 401 triggers redirect to login"
+            ],
+            "documentation_tasks": [
+              "Update API client documentation"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "All API calls include Authorization header",
+              "Expired tokens are handled gracefully"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/axios-client",
+          "recommended_commits": [
+            "feat: setup axios instance with interceptors"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "AUTH-001"
+          ],
+          "tags": [
+            "api",
+            "security"
+          ],
+          "notes": "Ensure the interceptor handles the async nature of getting the Supabase session."
+        },
+        {
+          "id": "REALTIME-003",
+          "title": "Implement Supabase Realtime Task Subscription",
+          "description": "Connect the frontend to Supabase Realtime to listen for changes in the tasks collection.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Real-time data synchronization",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Enable Realtime in Supabase dashboard"
+            ],
+            "implementation_tasks": [
+              "Create useTaskSubscription hook",
+              "Implement channel subscription logic",
+              "Integrate with React Query cache invalidation"
+            ],
+            "testing_tasks": [
+              "Verify UI updates when database changes",
+              "Test connection resilience"
+            ],
+            "documentation_tasks": [
+              "Document real-time event handling"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Tasks update instantly when modified in DB",
+              "Subscription cleans up on component unmount"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "integration/realtime",
+          "recommended_commits": [
+            "feat: add realtime subscription hook",
+            "refactor: integrate realtime with react query"
+          ],
+          "estimated_hours": 8,
+          "dependencies": [
+            "AUTH-001"
+          ],
+          "tags": [
+            "realtime",
+            "websocket"
+          ],
+          "notes": "Use React Query's queryClient.invalidateQueries to trigger re-fetches."
+        },
+        {
+          "id": "STATUS-004",
+          "title": "Implement Task Completion Toggle Logic",
+          "description": "Connect the task checkbox component to the backend API to persist completion status.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Task status update flow",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Define API endpoint for status update"
+            ],
+            "implementation_tasks": [
+              "Create mutation hook for task status",
+              "Update UI component state",
+              "Implement optimistic updates"
+            ],
+            "testing_tasks": [
+              "Verify backend database update",
+              "Verify UI reflects success/failure"
+            ],
+            "documentation_tasks": [
+              "Update API endpoint documentation"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Checkbox toggles immediately (optimistic)",
+              "Backend persists status change"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/status-sync",
+          "recommended_commits": [
+            "feat: add task status mutation",
+            "feat: implement optimistic UI for tasks"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "API-002"
+          ],
+          "tags": [
+            "tasks",
+            "ui"
+          ],
+          "notes": "Ensure error rollback is implemented for optimistic updates."
+        },
+        {
+          "id": "ERR-005",
+          "title": "Implement Global Error Handling Middleware",
+          "description": "Create a centralized error handling mechanism for API failures and network issues.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Global error management",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create ErrorBoundary component"
+            ],
+            "implementation_tasks": [
+              "Implement Axios global error interceptor",
+              "Create toast notification system",
+              "Map backend error codes to user-friendly messages"
+            ],
+            "testing_tasks": [
+              "Simulate 500 errors",
+              "Simulate network timeout"
+            ],
+            "documentation_tasks": [
+              "Document error handling strategy"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "User sees toast notification on error",
+              "App does not crash on API failure"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/error-handling",
+          "recommended_commits": [
+            "feat: add global error interceptor",
+            "feat: add toast notifications"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [
+            "API-002"
+          ],
+          "tags": [
+            "error-handling",
+            "ux"
+          ],
+          "notes": "Use a library like react-hot-toast for notifications."
+        },
+        {
+          "id": "AUTH-006",
+          "title": "Secure FastAPI Routes with JWT Validation",
+          "description": "Implement dependency injection in FastAPI to validate Supabase JWTs on incoming requests.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Backend security",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install PyJWT"
+            ],
+            "implementation_tasks": [
+              "Create auth dependency for FastAPI",
+              "Validate JWT signature and claims",
+              "Extract user ID from token"
+            ],
+            "testing_tasks": [
+              "Test with valid token",
+              "Test with expired/invalid token"
+            ],
+            "documentation_tasks": [
+              "Update security documentation"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Unauthorized requests return 401",
+              "Valid requests allow access to user data"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/auth-backend",
+          "recommended_commits": [
+            "feat: add jwt validation dependency",
+            "refactor: protect task endpoints"
+          ],
+          "estimated_hours": 7,
+          "dependencies": [
+            "AUTH-001"
+          ],
+          "tags": [
+            "backend",
+            "security"
+          ],
+          "notes": "Ensure the public key is fetched from Supabase."
+        },
+        {
+          "id": "DB-007",
+          "title": "Sync MongoDB User Schema with Supabase Auth",
+          "description": "Ensure that when a user signs up via Supabase, a corresponding document is created in MongoDB.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "User synchronization",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create user model in MongoDB"
+            ],
+            "implementation_tasks": [
+              "Create FastAPI endpoint for user profile creation",
+              "Trigger profile creation on auth success"
+            ],
+            "testing_tasks": [
+              "Verify user document creation on signup"
+            ],
+            "documentation_tasks": [
+              "Document user schema"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "User exists in MongoDB after signup",
+              "User ID matches Supabase UID"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/user-sync",
+          "recommended_commits": [
+            "feat: add user profile model",
+            "feat: sync user on signup"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "AUTH-006"
+          ],
+          "tags": [
+            "database",
+            "backend"
+          ],
+          "notes": "Consider using a database trigger or a post-signup API call."
+        },
+        {
+          "id": "UI-008",
+          "title": "Implement Protected Routes in React Router",
+          "description": "Restrict access to application routes based on authentication state.",
+          "type": "feature",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Frontend routing",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install react-router-dom"
+            ],
+            "implementation_tasks": [
+              "Create ProtectedRoute wrapper component",
+              "Configure route definitions"
+            ],
+            "testing_tasks": [
+              "Verify redirect to login when unauthenticated",
+              "Verify access when authenticated"
+            ],
+            "documentation_tasks": [
+              "Document routing structure"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Unauthenticated users cannot access dashboard",
+              "Authenticated users are redirected from login"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/routing",
+          "recommended_commits": [
+            "feat: add protected routes"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "AUTH-001"
+          ],
+          "tags": [
+            "frontend",
+            "routing"
+          ],
+          "notes": "Handle the loading state while checking auth status."
+        },
+        {
+          "id": "API-009",
+          "title": "Implement CORS Policy for FastAPI",
+          "description": "Configure CORS middleware in FastAPI to allow requests from the Vercel frontend domain.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Backend configuration",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Identify frontend origin"
+            ],
+            "implementation_tasks": [
+              "Configure CORSMiddleware in FastAPI app",
+              "Set allowed origins, methods, and headers"
+            ],
+            "testing_tasks": [
+              "Verify cross-origin requests succeed"
+            ],
+            "documentation_tasks": [
+              "Document CORS configuration"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Frontend can communicate with backend",
+              "CORS errors are resolved"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "integration/cors",
+          "recommended_commits": [
+            "chore: configure cors middleware"
+          ],
+          "estimated_hours": 2,
+          "dependencies": [],
+          "tags": [
+            "backend",
+            "security"
+          ],
+          "notes": "Use environment variables for allowed origins."
+        },
+        {
+          "id": "TEST-010",
+          "title": "Setup Integration Test Suite",
+          "description": "Create a base test suite for verifying the integration between frontend, backend, and database.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Integration testing",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install Pytest and Playwright"
+            ],
+            "implementation_tasks": [
+              "Create base test setup for API",
+              "Create base test setup for UI",
+              "Add mock data for testing"
+            ],
+            "testing_tasks": [
+              "Run smoke tests for auth flow"
+            ],
+            "documentation_tasks": [
+              "Document how to run integration tests"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Tests run in CI environment",
+              "Auth flow is covered by tests"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "integration/testing",
+          "recommended_commits": [
+            "test: add integration test suite"
+          ],
+          "estimated_hours": 8,
+          "dependencies": [
+            "AUTH-006",
+            "API-002"
+          ],
+          "tags": [
+            "testing",
+            "ci"
+          ],
+          "notes": "Use a separate test database for integration tests."
+        }
+      ],
+      "batchNumber": 4
+    },
+    {
+      "issues": [
+        {
+          "id": "test-be-001",
+          "title": "Implement PyTest Suite for Task Business Logic",
+          "description": "Develop a comprehensive unit testing suite for the FastAPI backend, focusing on task creation, assignment validation, and status transition logic.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Backend service layer and domain logic within the FastAPI application.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install pytest and pytest-asyncio",
+              "Configure conftest.py for database mocking"
+            ],
+            "implementation_tasks": [
+              "Write tests for task validation schemas",
+              "Mock MongoDB collection methods",
+              "Test CRUD operation edge cases"
+            ],
+            "testing_tasks": [
+              "Run pytest with coverage report",
+              "Verify async test execution"
+            ],
+            "documentation_tasks": [
+              "Update README with testing instructions"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Minimum 80% code coverage for task-related services",
+              "All tests pass in CI environment"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "test/backend-unit",
+          "recommended_commits": [
+            "feat: add pytest configuration",
+            "test: add unit tests for task service"
+          ],
+          "estimated_hours": 8,
+          "dependencies": [],
+          "tags": [
+            "backend",
+            "testing",
+            "pytest"
+          ],
+          "notes": "Ensure database interactions are mocked to prevent side effects in the development MongoDB instance."
+        },
+        {
+          "id": "test-fe-001",
+          "title": "Setup Vitest and RTL for UI Components",
+          "description": "Configure the frontend testing environment and implement unit tests for core UI components like TaskCard and TaskList.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "high",
+          "scope": "React components in the src/components directory.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install vitest, jsdom, and @testing-library/react",
+              "Configure vitest.config.ts"
+            ],
+            "implementation_tasks": [
+              "Create test files for TaskCard component",
+              "Implement mock data providers for React Query",
+              "Test component rendering states"
+            ],
+            "testing_tasks": [
+              "Verify component interaction tests",
+              "Check for accessibility violations"
+            ],
+            "documentation_tasks": [
+              "Document component testing patterns"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "TaskCard renders correctly with mock props",
+              "User interactions trigger expected state changes"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "test/frontend-unit",
+          "recommended_commits": [
+            "setup: configure vitest environment",
+            "test: add unit tests for TaskCard component"
+          ],
+          "estimated_hours": 10,
+          "dependencies": [],
+          "tags": [
+            "frontend",
+            "testing",
+            "vitest"
+          ],
+          "notes": "Use MSW (Mock Service Worker) if necessary to mock API responses for React Query hooks."
+        },
+        {
+          "id": "test-int-001",
+          "title": "End-to-End Integration Tests for Task Lifecycle",
+          "description": "Implement integration tests to verify the flow between the frontend, FastAPI backend, and Supabase Realtime updates.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Full stack flow from UI action to database persistence and real-time broadcast.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Configure Playwright or Cypress",
+              "Set up test database cleanup scripts"
+            ],
+            "implementation_tasks": [
+              "Write test for task creation flow",
+              "Verify real-time update reception in a second client instance",
+              "Test auth-protected routes"
+            ],
+            "testing_tasks": [
+              "Run full integration suite",
+              "Verify database state after test completion"
+            ],
+            "documentation_tasks": [
+              "Update integration test documentation"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Task creation reflects in DB and UI simultaneously",
+              "Unauthorized access attempts are blocked"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "test/integration",
+          "recommended_commits": [
+            "test: add e2e task creation flow",
+            "test: add real-time synchronization verification"
+          ],
+          "estimated_hours": 12,
+          "dependencies": [
+            "test-be-001",
+            "test-fe-001"
+          ],
+          "tags": [
+            "integration",
+            "testing",
+            "e2e"
+          ],
+          "notes": "Requires a dedicated test environment in Supabase to avoid polluting production data."
+        },
+        {
+          "id": "test-perf-001",
+          "title": "Performance Audit: Latency and Load Times",
+          "description": "Audit the application's performance, specifically focusing on initial load times and the latency of Supabase Realtime broadcasts.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Frontend bundle size and WebSocket message latency.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install Lighthouse CI or similar performance tools",
+              "Establish performance baseline"
+            ],
+            "implementation_tasks": [
+              "Measure Time to Interactive (TTI)",
+              "Benchmark WebSocket message delivery time",
+              "Identify bottlenecks in API response time"
+            ],
+            "testing_tasks": [
+              "Run performance audits under simulated load"
+            ],
+            "documentation_tasks": [
+              "Create performance audit report"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "TTI under 2.5 seconds",
+              "Real-time latency under 200ms"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "test/perf",
+          "recommended_commits": [
+            "perf: establish performance baseline",
+            "perf: document latency bottlenecks"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [
+            "test-int-001"
+          ],
+          "tags": [
+            "performance",
+            "testing"
+          ],
+          "notes": "Focus on optimizing React Query cache settings if latency is high."
+        },
+        {
+          "id": "test-uat-001",
+          "title": "Conduct User Acceptance Testing (UAT) Sessions",
+          "description": "Facilitate manual testing sessions with target users (families) to validate usability and identify workflow friction.",
+          "type": "testing",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Application UI/UX and core task management workflows.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create UAT test script/checklist",
+              "Prepare staging environment for testers"
+            ],
+            "implementation_tasks": [
+              "Observe users performing task assignment",
+              "Collect feedback on mobile responsiveness"
+            ],
+            "testing_tasks": [
+              "Document usability issues",
+              "Categorize feedback by severity"
+            ],
+            "documentation_tasks": [
+              "Summarize UAT findings and action items"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Minimum 3 families tested",
+              "Critical usability blockers identified and logged"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "test/uat",
+          "recommended_commits": [
+            "docs: add UAT test script",
+            "docs: summarize UAT feedback"
+          ],
+          "estimated_hours": 10,
+          "dependencies": [
+            "test-int-001"
+          ],
+          "tags": [
+            "uat",
+            "usability",
+            "testing"
+          ],
+          "notes": "Ensure testers have clear instructions on how to report bugs found during the session."
+        }
+      ],
+      "batchNumber": 5
+    },
+    {
+      "issues": [
+        {
+          "id": "DEP-001",
+          "title": "Configure Vercel Production Build Pipeline",
+          "description": "Establish the CI/CD pipeline on Vercel for the React frontend and FastAPI backend, ensuring environment variables are correctly injected and build commands are optimized.",
+          "type": "deployment",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Vercel project settings, vercel.json configuration, and environment variable mapping.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Link GitHub repository to Vercel project",
+              "Configure build command for Vite"
+            ],
+            "implementation_tasks": [
+              "Create vercel.json for routing rules",
+              "Map Supabase and MongoDB connection strings to Vercel environment variables"
+            ],
+            "testing_tasks": [
+              "Verify production build succeeds",
+              "Test frontend routing with React Router"
+            ],
+            "documentation_tasks": [
+              "Update README with deployment environment variable requirements"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Production build completes without errors",
+              "Environment variables are accessible to the runtime",
+              "App is accessible via Vercel preview URL"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "deploy/vercel",
+          "recommended_commits": [
+            "feat: add vercel.json configuration",
+            "chore: configure production environment variables"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [],
+          "tags": [
+            "deployment",
+            "vercel",
+            "ci-cd"
+          ],
+          "notes": "Ensure sensitive keys are marked as 'Secret' in Vercel dashboard."
+        },
+        {
+          "id": "DEP-002",
+          "title": "Implement MongoDB Production Indexes",
+          "description": "Apply necessary indexes to MongoDB collections to ensure query performance for task retrieval and user authentication in a production environment.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "MongoDB Atlas collections: users, tasks, and households.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Connect to production MongoDB instance via shell"
+            ],
+            "implementation_tasks": [
+              "Create compound index on tasks (household_id, status)",
+              "Create unique index on users (email)"
+            ],
+            "testing_tasks": [
+              "Run explain() on common queries to verify index usage"
+            ],
+            "documentation_tasks": [
+              "Document index strategy in database schema file"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Queries for tasks by household_id return in < 100ms",
+              "Unique constraint on user email is enforced"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "deploy/db-indexing",
+          "recommended_commits": [
+            "feat: add compound indexes for task queries",
+            "perf: add unique index to user email"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "DEP-001"
+          ],
+          "tags": [
+            "database",
+            "mongodb",
+            "performance"
+          ],
+          "notes": "Use background indexing to avoid blocking production traffic."
+        },
+        {
+          "id": "DEP-003",
+          "title": "Configure Custom Domain and SSL",
+          "description": "Point the production domain to Vercel and ensure SSL/TLS certificates are automatically provisioned and active.",
+          "type": "deployment",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "DNS settings and Vercel domain configuration.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Update DNS A/CNAME records at registrar"
+            ],
+            "implementation_tasks": [
+              "Add domain to Vercel project settings",
+              "Verify SSL certificate generation"
+            ],
+            "testing_tasks": [
+              "Verify HTTPS redirection",
+              "Check SSL certificate validity"
+            ],
+            "documentation_tasks": [
+              "Update project documentation with production URL"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Domain resolves to production app",
+              "Browser shows valid SSL padlock",
+              "HTTP requests redirect to HTTPS"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "deploy/domain",
+          "recommended_commits": [
+            "chore: configure custom domain settings"
+          ],
+          "estimated_hours": 2,
+          "dependencies": [
+            "DEP-001"
+          ],
+          "tags": [
+            "deployment",
+            "dns",
+            "security"
+          ],
+          "notes": "Propagation may take up to 24 hours."
+        },
+        {
+          "id": "DEP-004",
+          "title": "Integrate Sentry for Error Tracking",
+          "description": "Set up Sentry SDK in both the React frontend and FastAPI backend to capture runtime exceptions and performance bottlenecks.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Sentry project initialization and SDK integration.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create Sentry project",
+              "Obtain DSN keys"
+            ],
+            "implementation_tasks": [
+              "Initialize Sentry in main.jsx",
+              "Add Sentry middleware to FastAPI app"
+            ],
+            "testing_tasks": [
+              "Trigger test error to verify Sentry dashboard capture"
+            ],
+            "documentation_tasks": [
+              "Add monitoring section to internal wiki"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Frontend errors appear in Sentry",
+              "Backend exceptions appear in Sentry",
+              "Performance traces are captured"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "deploy/monitoring",
+          "recommended_commits": [
+            "feat: integrate sentry for error tracking"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "DEP-001"
+          ],
+          "tags": [
+            "monitoring",
+            "sentry",
+            "reliability"
+          ],
+          "notes": "Ensure DSN is not exposed in client-side source maps if possible."
+        },
+        {
+          "id": "DEP-005",
+          "title": "Automate MongoDB Backup Strategy",
+          "description": "Configure automated daily snapshots for the MongoDB database to ensure data recovery capability in case of catastrophic failure.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "MongoDB Atlas backup settings.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Access MongoDB Atlas dashboard"
+            ],
+            "implementation_tasks": [
+              "Enable Cloud Backup",
+              "Configure retention policy (30 days)"
+            ],
+            "testing_tasks": [
+              "Perform a test restore to a staging cluster"
+            ],
+            "documentation_tasks": [
+              "Document disaster recovery procedure"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Automated backups enabled",
+              "Retention policy set to 30 days",
+              "Recovery procedure documented"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "deploy/backups",
+          "recommended_commits": [
+            "chore: configure automated database backups"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "DEP-002"
+          ],
+          "tags": [
+            "database",
+            "backup",
+            "security"
+          ],
+          "notes": "Verify costs associated with cloud backups in Atlas."
+        },
+        {
+          "id": "DEP-006",
+          "title": "Production Security Hardening",
+          "description": "Implement security headers and CORS policies to protect the application from common web vulnerabilities in production.",
+          "type": "deployment",
+          "status": "todo",
+          "priority": "high",
+          "scope": "FastAPI middleware and Vercel security headers.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Review OWASP security headers"
+            ],
+            "implementation_tasks": [
+              "Add CORS middleware to FastAPI",
+              "Configure Content-Security-Policy (CSP) headers"
+            ],
+            "testing_tasks": [
+              "Run security audit via browser dev tools"
+            ],
+            "documentation_tasks": [
+              "Update security policy document"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "CORS restricts unauthorized origins",
+              "Security headers (HSTS, CSP) are present",
+              "No sensitive info leaked in headers"
+            ],
+            "automated_tests": true
+          },
+          "branch_name": "deploy/security",
+          "recommended_commits": [
+            "feat: add security headers and CORS policy"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [
+            "DEP-001",
+            "DEP-003"
+          ],
+          "tags": [
+            "security",
+            "hardening",
+            "production"
+          ],
+          "notes": "Be careful with CSP; start with report-only mode if necessary."
+        }
+      ],
+      "batchNumber": 6
+    },
+    {
+      "issues": [
+        {
+          "id": "DOC-001",
+          "title": "Implement OpenAPI/Swagger Documentation for FastAPI",
+          "description": "Configure FastAPI to automatically generate OpenAPI schemas and expose the Swagger UI for all backend endpoints.",
+          "type": "documentation",
+          "status": "todo",
+          "priority": "high",
+          "scope": "FastAPI application layer, specifically route decorators and Pydantic models.",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Install fastapi[all] for Swagger support",
+              "Verify current route definitions"
+            ],
+            "implementation_tasks": [
+              "Add docstrings to all route handlers",
+              "Define response_model for all endpoints",
+              "Configure OpenAPI metadata in FastAPI app instance"
+            ],
+            "testing_tasks": [
+              "Verify /docs endpoint accessibility",
+              "Validate schema generation for nested MongoDB models"
+            ],
+            "documentation_tasks": [
+              "Update README with link to API docs"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Swagger UI is accessible at /docs",
+              "All endpoints are documented with request/response schemas",
+              "Authentication headers are visible in Swagger UI"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "docs/api",
+          "recommended_commits": [
+            "feat: add openapi metadata to fastapi app",
+            "docs: annotate routes with response models"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [],
+          "tags": [
+            "backend",
+            "api",
+            "documentation"
+          ],
+          "notes": "Ensure Pydantic models are correctly typed to allow Swagger to infer schema structure."
+        },
+        {
+          "id": "DOC-002",
+          "title": "Create Local Development Environment Setup Guide",
+          "description": "Develop a comprehensive README.md section detailing how to clone, configure, and run the project locally.",
+          "type": "setup",
+          "status": "todo",
+          "priority": "high",
+          "scope": "Root directory README.md and /docs/setup.md",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Audit current environment variables"
+            ],
+            "implementation_tasks": [
+              "Document prerequisite software (Python, Node, MongoDB)",
+              "Create .env.example template",
+              "Write step-by-step installation commands"
+            ],
+            "testing_tasks": [
+              "Verify instructions on a clean machine"
+            ],
+            "documentation_tasks": [
+              "Format with clear markdown headers and code blocks"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "New developer can run the app following only the guide",
+              "Environment variable requirements are clearly listed"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "docs/setup",
+          "recommended_commits": [
+            "docs: create local setup guide",
+            "feat: add .env.example file"
+          ],
+          "estimated_hours": 4,
+          "dependencies": [],
+          "tags": [
+            "onboarding",
+            "setup"
+          ],
+          "notes": "Include instructions for Supabase local CLI if applicable."
+        },
+        {
+          "id": "DOC-003",
+          "title": "Establish Architectural Decision Records (ADR)",
+          "description": "Initialize an ADR repository to document key technical choices, such as the choice of MongoDB over SQL and the use of Supabase Realtime.",
+          "type": "documentation",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "/docs/adr directory",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Create /docs/adr directory"
+            ],
+            "implementation_tasks": [
+              "Draft ADR-001: Database Choice (MongoDB)",
+              "Draft ADR-002: Real-time Sync Strategy",
+              "Draft ADR-003: Frontend State Management"
+            ],
+            "testing_tasks": [
+              "Peer review of architectural justifications"
+            ],
+            "documentation_tasks": [
+              "Link ADRs in main README"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "At least 3 core architectural decisions documented",
+              "Standard ADR format followed"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "docs/adr",
+          "recommended_commits": [
+            "docs: initialize adr directory",
+            "docs: add adr-001 and adr-002"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [],
+          "tags": [
+            "architecture",
+            "documentation"
+          ],
+          "notes": "Use the MADR (Markdown Architectural Decision Records) template."
+        },
+        {
+          "id": "DOC-004",
+          "title": "Draft End-User Manual for Family Members",
+          "description": "Create a user-friendly guide explaining how to perform core tasks: creating an account, joining a family, and completing chores.",
+          "type": "documentation",
+          "status": "todo",
+          "priority": "low",
+          "scope": "/docs/user-manual.md",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Outline core user flows"
+            ],
+            "implementation_tasks": [
+              "Write 'Getting Started' section",
+              "Write 'Managing Chores' section",
+              "Add troubleshooting FAQ"
+            ],
+            "testing_tasks": [
+              "Review for non-technical language"
+            ],
+            "documentation_tasks": [
+              "Add screenshots placeholders"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Guide covers all primary user features",
+              "Language is accessible to non-technical family members"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "docs/user-manual",
+          "recommended_commits": [
+            "docs: add user manual draft"
+          ],
+          "estimated_hours": 6,
+          "dependencies": [],
+          "tags": [
+            "user-experience",
+            "documentation"
+          ],
+          "notes": "Keep it concise and visually oriented."
+        },
+        {
+          "id": "DOC-005",
+          "title": "Document Deployment Procedures",
+          "description": "Create a guide for deploying the application to Vercel (frontend) and a cloud provider (FastAPI backend).",
+          "type": "deployment",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "/docs/deployment.md",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Identify deployment targets"
+            ],
+            "implementation_tasks": [
+              "Document Vercel deployment steps",
+              "Document FastAPI containerization/deployment",
+              "List required production environment variables"
+            ],
+            "testing_tasks": [
+              "Verify deployment steps against staging environment"
+            ],
+            "documentation_tasks": [
+              "Add rollback procedures"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "Deployment steps are reproducible",
+              "Environment variable security best practices are noted"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "docs/deployment",
+          "recommended_commits": [
+            "docs: add deployment documentation"
+          ],
+          "estimated_hours": 5,
+          "dependencies": [
+            "DOC-002"
+          ],
+          "tags": [
+            "deployment",
+            "devops"
+          ],
+          "notes": "Focus on CI/CD integration if applicable."
+        },
+        {
+          "id": "DOC-006",
+          "title": "Consolidate Documentation and README Cleanup",
+          "description": "Review all generated documentation, ensure cross-linking, and update the main project README to reflect the new documentation structure.",
+          "type": "documentation",
+          "status": "todo",
+          "priority": "medium",
+          "scope": "Root README.md and documentation directory structure",
+          "technical_checklist": {
+            "setup_tasks": [
+              "Audit all /docs files"
+            ],
+            "implementation_tasks": [
+              "Update README with 'Documentation' section",
+              "Fix broken internal links",
+              "Standardize markdown formatting"
+            ],
+            "testing_tasks": [
+              "Verify all links in README work"
+            ],
+            "documentation_tasks": [
+              "Final polish of all markdown files"
+            ]
+          },
+          "acceptance_criteria": {
+            "criteria": [
+              "README acts as a central hub for all docs",
+              "Consistent tone and style across all files"
+            ],
+            "automated_tests": false
+          },
+          "branch_name": "docs/cleanup",
+          "recommended_commits": [
+            "docs: consolidate and link all project documentation"
+          ],
+          "estimated_hours": 3,
+          "dependencies": [
+            "DOC-001",
+            "DOC-002",
+            "DOC-003",
+            "DOC-004",
+            "DOC-005"
+          ],
+          "tags": [
+            "documentation",
+            "maintenance"
+          ],
+          "notes": "Final review pass before project delivery."
+        }
+      ],
+      "batchNumber": 7
+    }
+  ]
+}
